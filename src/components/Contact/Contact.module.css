@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.name {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.phone {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.button {
+  padding: 6px 14px;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color: #d8d3d3;
+  cursor: pointer;
+}
