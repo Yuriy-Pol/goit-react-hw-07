@@ -1,7 +1,7 @@
 import { IoPersonSharp } from 'react-icons/io5';
 import { FaPhoneAlt } from 'react-icons/fa';
 import css from './Contact.module.css';
-import { deleteContact } from '../../redux/contactsSlice.js';
+import { deleteContact } from '../../redux/contactsOps';
 import { useDispatch } from 'react-redux';
 
 export default function Contact({ name, phone, id }) {
