@@ -1,35 +1,61 @@
-import { IoPersonSharp } from 'react-icons/io5';
+import ContactEditor from '../ContactEditor/ContactEditor.jsx';
+import DeleteModal from '../DeleteModal/DeleteModal.jsx';
 import { FaPhoneAlt } from 'react-icons/fa';
+import { IoPersonSharp } from 'react-icons/io5';
+import { useState } from 'react';
+
 import css from './Contact.module.css';
-import { deleteContact } from '../../redux/contactsOps';
-import { useDispatch } from 'react-redux';
 
 export default function Contact({ name, phone, id }) {
-  const dispatch = useDispatch();
-  const handlerDelete = idToDelete => {
-    dispatch(deleteContact(idToDelete));
+  const [isEditing, setIsEditing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   return (
     <>
-      <div className={css.wrapper}>
-        <div className={css.name}>
-          <IoPersonSharp />
-          <p>{name}</p>
+      {isEditing ? (
+        <ContactEditor
+          contact={{ name, phone, id }}
+          onClose={() => setIsEditing(false)}
+        />
+      ) : (
+        <div className={css.card}>
+          <div className={css.wrapper}>
+            <div className={css.name}>
+              <IoPersonSharp />
+              <p>{name}</p>
+            </div>
+            <div className={css.phone}>
+              <FaPhoneAlt />
+              <p>{phone}</p>
+            </div>
+          </div>
+          <button
+            className={css.edit}
+            type="button"
+            onClick={() => setIsEditing(true)}
+          >
+            Edit
+          </button>
+          <button
+            className={css.delete}
+            type="button"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            Delete
+          </button>
         </div>
-        <div className={css.phone}>
-          <FaPhoneAlt />
-          <p>{phone}</p>
-        </div>
-      </div>
-      <button
-        className={css.button}
-        type="button"
+      )}
+      <DeleteModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        contactName={name}
         id={id}
-        onClick={() => handlerDelete(id)}
-      >
-        Delete
-      </button>
+      />
     </>
   );
 }
